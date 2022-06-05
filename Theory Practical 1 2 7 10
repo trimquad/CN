@@ -1,0 +1,202 @@
+Practical 1 
+
+Thesa are physical devices that are used for communication and interaction between the hardwares on the computer network.
+
+Hub :
+A.k.a Network hub
+Works at physical layer of OSI model
+Used to set up LAN
+Has multiple ports.
+Star topology.
+When a packet arrives at one port it is copied to other ports by hub so that all segments of LAN can see all packets.
+Half Duplex.
+Cheaper than switches and works good for smaller networks.
+Issue with broadcast. Has no memory. Normally runs in half duplex mode. Not an intelligent device.
+Switch :
+A switch , like a hub, is also a networking device which is used to set up LAN and forward data packets based on their mac address .
+Unlike hubs, switch is a layer 2 i.e data link layer device.
+Unlike hub, switch has memory which is used to store mac address tables.
+It is an intelligent device.
+Can do unicasting , multicasting and broadcasting as required.
+Security risks are low.
+More Efficient the hub.
+Full duplex.
+Router :
+A router is a networking device that forwards data packets between computer networks based on their IP address.
+A router is connected to at least two networks, like two LANs or WANs.
+It works or operates at the network layer.
+Has memory and stores a routing table.
+It is full duplex.
+Repeater :
+When data signals travel a long distance they tend to get weak or corrupted.
+Repeater is a device used to regenerate signals over the same network.
+It operates at physical Layer.
+They do not amplify the signal.
+It is a 2 port device.
+Bridge :
+It is a repeater with additional functionality of reading mac addresses.
+It is a data link layer device(Layer 2).
+It is also used to interconnect two LANs with same protocol whereas router is used to connect two LANs with different protocol.
+It is 2 port device.
+It deals with the mac Addresses only.
+Transparent Bridges : These are the bridge in which the stations are completely unaware of the bridge’s existence i.e. whether or not a bridge is added or deleted from the network, reconfiguration of the stations is unnecessary. 
+Source Routing Bridges :  In these bridges, routing operation is performed by the source station and the frame specifies which route to follow.
+Gateway :
+A gateway, as the name suggests, is a passage to connect two networks together that may work upon different networking models.
+They basically work as the messenger agents that take data from one system, interpret it, and transfer it to another system.
+Modem :
+Modems (modulators-demodulators) are used to transmit digital signals over analog telephone lines. 
+Brouter :
+It is also known as the bridging router is a device that combines features of both bridge and router. 
+It can work either at the data link layer or a network layer. 
+Multilayer Switch :
+Layer 3 switch or Layer 2 switch.
+Fire Wall :
+Security Device.
+Filters incoming and outgoing traffic.
+Access Point
+An AP works at the second OSI layer, the Data Link layer, and it can operate either as a bridge connecting a standard wired network to wireless devices or as a router passing data transmissions from one access point to another.
+NIC :
+NIC or network interface card is a network adapter that is used to connect the computer to the network. 
+It is installed in the computer to establish a LAN.
+
+
+
+
+
+Practical 2 : Networking Commands.
+
+
+1. Ping
+The Ping command allows you to test the reachability of a device on a network. 
+To run the basic command, at the prompt type:
+ping [host]
+2. IPConfig
+The IPConfig command displays basic IP address configuration information for the Windows device you are working on.
+To run the basic command, at the prompt type:
+ipconfig
+3. Getmac
+Using the Getmac command, a user can determine the MAC address of their various network devices. 
+getmac
+4. HostNameThe Windows 10 HostName network command will simply display the current name of your Windows 10 computer 
+5. Tracert
+This command will trace the route a data packet takes before reaching its destination, displaying information on each hop along the route. 
+6. Netstat
+The Netstat command displays active TCP connections, ports on which the computer is listening, Ethernet statistics, the IP routing table, IPv4 statistics, and IPv6 statistics.
+To run the basic command, at the prompt type:
+netstat
+7. Arp
+
+The Windows 10 network command Arp displays entries in the Address Resolution Protocol (ARP) cache, which contains one or more tables that are used to store IP addresses and their resolved Ethernet physical addresses.
+To run the basic command, at the prompt type:
+arp /a
+8. SystemInfo 
+displays a detailed list of configuration information about your Windows 10 PC. 
+9. Nslookup command
+Nslookup (stands for “Name Server Lookup”) is a useful command for getting information from the DNS server. It is a network administration tool for querying the Domain Name System (DNS) to obtain domain name or IP address mapping or any other specific DNS record. It is also used to troubleshoot DNS-related problems.
+
+
+
+
+Practical No.7
+
+Aim : 
+To Study OMnet++ Open source simulator.
+
+Theory :
+
+What is OMNeT++?
+
+OMNeT++ is an extensible, modular, component-based C++ simulation library and framework, primarily for building network simulators. 
+“Network” is meant in a broader sense that includes wired and wireless communication networks, on-chip networks, queueing networks, and so on. 
+Domain-specific functionality such as support for sensor networks, wireless ad-hoc networks, Internet protocols, performance modeling, photonic networks, etc., is provided by model frameworks, developed as independent projects. 
+OMNeT++ offers an Eclipse-based IDE, a graphical runtime environment, and a host of other tools. 
+There are extensions for real-time simulation, network emulation, database integration, SystemC integration, and several other functions. 
+OMNeT++ is distributed under the Academic Public License.
+
+Although OMNeT++ is not a network simulator itself, it has gained widespread popularity as a network simulation platform in the scientific community as well as in industrial settings, and building up a large user community.
+
+OMNeT++ provides a component architecture for models. Components (modules) are programmed in C++, then assembled into larger components and models using a high-level language (NED). 
+Reusability of models comes for free. OMNeT++ has extensive GUI support, and due to its modular architecture, the simulation kernel (and models) can be embedded easily into your applications.
+
+
+
+Components
+
+The main ingredients of OMNeT++ are:
+
+Simulation kernel library (C++)
+The NED topology description language
+Simulation IDE based on the Eclipse platform
+Interactive simulation runtime GUI (Qtenv)
+Command-line interface for simulation execution (Cmdenv)
+Utilities (makefile creation tool, etc.)
+Documentation, sample simulations, etc.
+
+Models
+
+During the years OMNeT++ has been available, countless simulation models and model frameworks have been written for it by researchers in diverse areas: queuing, resource modeling, internet protocols, wireless networks, switched LANs, peer-to-peer networks, media streaming, mobile ad-hoc networks, mesh networks, wireless sensor networks, vehicular networks, NoCs, optical networks, HPC systems, cloud computing, SANs, and more. Most of these model frameworks are open source, developed as independent projects, and follow their own release cycles.
+
+The INET Framework can be considered the standard protocol model library of OMNeT++. INET contains models for the Internet stack and many other protocols and components. The INET Framework is maintained by the OMNeT++ team for the community, utilizing patches and new models contributed by members of the community. Several other simulation frameworks take INET as a base, and extend it into specific directions, such as vehicular networks (Veins, CoRE), overlay/peer-to-peer networks (OverSim), or LTE (SimuLTE).
+
+
+Platforms
+
+The OMNeT++ simulation kernel is standard C++, and runs basically on all platforms where a modern C++ compiler is available. The Simulation IDE requires Windows, Linux, or macOS.
+
+Conclusion :  Hence we have successfully studied OMnet++ Open source simulator.
+
+
+Practical No.10
+
+
+Aim : 
+To study NAS, SAN and DAS.
+
+
+
+Theory :
+
+The 3 most prevalent storage solutions that you may consider for your organization include DAS (Directly Attached Storage), NAS (Network Attached Storage) and SAN (Storage Area Networks).
+
+Directly Attached Storage (DAS)
+
+
+In DAS, the storage device is directly attached to the computer. 
+For example, a USB-connected external hard drive. A number of cables can be used to connect DAS units, such as fiber optics, SAS, SATA, and so on. A DAS is designed to be used only by a single computer, unlike NAS and SAN that are designed to be shared resources. 
+The main advantages of DAS is that it is high-performance, simpler to setup and configure, and typically lower-cost when compared to SAN storage. 
+The disadvantage is that it cannot be managed over a network, and may not have the same level of redundancy as a NAS or SAN.
+                                                      
+
+
+
+Network Attached Storage (NAS)
+
+It is a special purpose device. It comprises hard disks, as well as management software. NAS is dedicated 100% to serve files over a network. 
+In simple terms, NAS shares storage over a network. Once connected, you will come across special folders named ‘Shares’ that can be accessed over the network. 
+Multiple user logins can also be created to provide various levels of access. NAS is ideal for SMBs because it allows a cost-effective way to gain data access for multiple clients quickly at the file level. 
+SMBs can gain from its performance, and increase their productivity. 
+Few other advantages include easy setup and configuration compared to SAN, maximum storage resources utilization, and the easy-to-provide RAID redundancy to a large number of users. 
+Disadvantages include latency issues due to network issues.
+
+                                      
+
+Storage Area Networks (SAN)
+
+
+
+A SAN is a high-performance, dedicated storage network. It transfers data between storage devices and servers. 
+It functions separately from LAN. In the SAN infrastructure, fiber channel is used to connect devices such as RAID arrays, DAS or tape libraries to servers. 
+The main advantage of SAN is its ability to transfer large data blocks. This is very useful for bandwidth-intensive applications such as imaging, database (cloud computing, virtual environments), and transaction processing. 
+Also, SAN offers complete reliability and 24/7 availability of data. 
+SAN is limited to the enterprise sector since a huge investment is required for its design, development, and deployment.
+DAS, NAS, and SAN all offers huge benefits. 
+                                     
+
+
+Conclusion : Hence we have successfully studied NAS, SAN and DAS.
+
+
+
+
+
