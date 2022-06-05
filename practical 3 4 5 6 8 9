@@ -1,0 +1,572 @@
+Practical No.3
+
+Aim : 
+Execute program to implement bit stuffing method.
+
+Theory :
+
+Data link layer is responsible for something called Framing, which is the division of stream of bits from network layer into manageable units (called frames). Frames could be of fixed size or variable size. In variable-size framing, we need a way to define the end of the frame and the beginning of the next frame.
+
+Bit stuffing is the insertion of non information bits into data. 
+Note that stuffed bits should not be confused with overhead bits.
+ Overhead bits are non-data bits that are necessary for transmission (usually as part of headers, checksums etc.).
+A non information bit will be stuffed after every 5 consecutive 1’s.
+
+
+Code :
+
+#include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+
+void bitStuffing(int N, int arr[])
+{
+    int brr[30];
+    int i, j, k;
+    i = 0;
+    j = 0;
+    int count;
+    while (i < N)
+    {
+         if (arr[i] == 1)
+        {
+             count = 1;
+             brr[j] = arr[i];
+             for(k = i + 1; arr[k] == 1 && k < N && count < 5;k++)
+            {
+                j++;
+                brr[j] = arr[k];
+                count++;
+                if (count == 5)
+                {
+                    j++;
+                    brr[j] = 0;
+                }
+                i = k;
+            }
+        }
+        else
+        {
+            count = 0;
+            brr[j] = arr[i];
+        }
+        i++;
+        j++;
+    }
+    for(i = 0; i < j; i++)
+        cout << brr[i];
+}
+
+int main()
+{
+    int N ;
+    int arr[20];
+    cout<<"Enter the size of the frame"<<endl;
+    cin>>N;
+    cout<<"Enter the Bit string "<<endl;
+    for(int i =0;i<N;i++)
+        cin>>arr[i];
+   cout<< "After Bit Stuffing :  ";
+    bitStuffing(N, arr);
+
+    return 0;
+}
+
+
+
+Practical No. 4
+
+Aim : 
+Execute program to implement distance vector routing algorithm.
+
+Theory :
+
+A distance-vector routing (DVR) protocol requires that a router inform its neighbors of topology changes periodically. 
+Historically known as the old ARPANET routing algorithm (or known as Bellman-Ford algorithm).
+A router transmits its distance vector to each of its neighbors in a routing packet.
+Each router receives and saves the most recently received distance vector from each of its neighbors.
+A router recalculates its distance vector when:
+It receives a distance vector from a neighbor containing different information than         before.
+It discovers that a link to a neighbor has gone down.
+
+
+Code :
+
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+struct node {
+    int dist[20];
+    int from[20];
+} route[10];
+
+
+int main()
+{
+    int dm[20][20], no;
+
+    cout << "Enter no of nodes." << endl;
+    cin >> no;
+    cout << "Enter the distance matrix:" << endl;
+
+    for (int i = 0; i < no; i++) {
+        for (int j = 0; j < no; j++) {
+            cin >> dm[i][j];
+            dm[i][i] = 0;
+            route[i].dist[j] = dm[i][j];
+            route[i].from[j] = j;
+        }
+    }
+
+ 
+   int flag;
+    do {
+        flag = 0;
+
+        for (int i = 0; i < no; i++) {
+            for (int j = 0; j < no; j++) {
+                for (int k = 0; k < no; k++) {
+                    if ((route[i].dist[j]) > (route[i].dist[k] + route[k].dist[j])) {
+                        route[i].dist[j] = route[i].dist[k] + route[k].dist[j];
+                        route[i].from[j] = k;
+                        flag = 1;
+                    }
+                }
+            }
+        }
+    } while (flag);
+
+    for (int i = 0; i < no; i++) {
+        cout << "Router info for router: " << i + 1 << endl;
+        cout << "Dest\tNext Hop\tDist" << endl;
+        for (int j = 0; j < no; j++)
+            printf("%d\t%d\t\t%d\n", j+1, route[i].from[j]+1, route[i].dist[j]);
+    }
+
+    return 0;
+}
+
+Output :
+Enter No. of nodes
+3
+Enter the distance matrix
+0 1 5
+1 0 2
+5 2 0
+
+
+
+
+Practical No.5
+
+Aim : 
+Execute a program to implement Dijkstra’s shortest path algorithm.
+
+Theory :
+
+Dijkstra's algorithm allows us to find the shortest path between any two vertices of a graph.
+It differs from the minimum spanning tree because the shortest distance between two vertices might not include all the vertices of the graph.
+Dijkstra's Algorithm works on the basis that any subpath B -> D of the shortest path A -> D between vertices A and D is also the shortest path between vertices B and D.
+Djikstra used this property in the opposite direction i.e we overestimate the distance of each vertex from the starting vertex. Then we visit each node and its neighbors to find the shortest subpath to those neighbors.
+The algorithm uses a greedy approach in the sense that we find the next best solution hoping that the end result is the best solution for the whole problem.
+
+Code :
+
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+#define INFINITY 9999
+#define max 5
+void dijkstra(int G[max][max],int n,int startnode);
+int main() {
+   int G[max][max];
+   int n;
+   int u;
+   cout<<"Enter no. of vertices : ";
+   cin>>n;
+   cout<<endl<<"Enter the adjacency matrix"<<endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> G[i][j];
+        }
+    }
+    cout<<endl<<"Enter the starting node:";
+    cin>>u;
+   dijkstra(G,n,u);
+   return 0;
+}
+void dijkstra(int G[max][max],int n,int startnode) {
+   int cost[max][max],distance[max],pred[max];
+   int visited[max],count,mindistance,nextnode,i,j;
+   for(i=0;i<n;i++)
+      for(j=0;j<n;j++)
+   if(G[i][j]==0)
+      cost[i][j]=INFINITY;
+   else
+      cost[i][j]=G[i][j];
+   for(i=0;i<n;i++) {
+      distance[i]=cost[startnode][i];
+      pred[i]=startnode;
+      visited[i]=0;
+   }
+   distance[startnode]=0;
+   visited[startnode]=1;
+   count=1;
+   while(count<n-1) {
+      mindistance=INFINITY;
+      for(i=0;i<n;i++)
+         if(distance[i]<mindistance&&!visited[i]) {
+         mindistance=distance[i];
+         nextnode=i;
+      }
+      visited[nextnode]=1;
+      for(i=0;i<n;i++)
+         if(!visited[i])
+      if(mindistance+cost[nextnode][i]<distance[i]) {
+         distance[i]=mindistance+cost[nextnode][i];
+         pred[i]=nextnode;
+      }
+      count++;
+   }
+   for(i=0;i<n;i++)
+   if(i!=startnode) {
+      cout<<"\nDistance of node"<<i<<"="<<distance[i];
+      cout<<"\nPath="<<i;
+      j=i;
+      do {
+         j=pred[j];
+         cout<<"<-"<<j;
+      }while(j!=startnode);
+   }
+}
+
+Output :
+Enter the no. of vertices : 5
+
+Enter the adjacency matrix
+0 10 0 30 100
+10 0 50 0 0
+0 50 0 20 10
+30 0 20 0 60
+100 0 10 60 0
+
+Enter the starting node : 0
+
+
+Practical No.6
+
+Aim : 
+Execute a program to determine if the IP address is in class A, B, C, D or E.
+
+Theory :
+IP address stands for internet protocol address; it is an identifying number that is associated with a specific computer or computer network.
+When connected to the internet, the IP address allows the computers to send and receive information.
+There are four types of IP addresses: public, private, static, and dynamic.
+An IP address allows information to be sent and received by the correct parties, which means they can also be used to track down a user's physical location.
+An IPv4 has 4 octets having decimal value between 0 to 255 and depending on the first octet’s value, IP Addresses divided into 5 classes:
+Class A		  1.0.0.1	to 	126.255.255.254
+Class B		128.1.0.1 	to 	191.255.255.254
+Class C		192.0.1.1	to 	223.255.254.254
+Class D		224.0.0.0	to	239.255.255.255
+Class E		240.0.0.0	to 	254.255.255.254
+
+Code :
+#include<iostream>
+using namespace std;
+
+int main()
+        {
+
+        int a[4],i=0;
+
+        cout<<"Enter The IP address";
+        for(i=0;i<4;i++)
+                cin>>a[i];
+
+        cout<<"\nIP ADDRESS: "<<a[0];
+        cout<<"."<<a[1]<<"."<<a[2]<<"."<<a[3]<<"\n";
+
+        cout<<"\nThe IP address is in Class : ";
+
+        if(a[0]>=0 && a[0]<127)
+        cout<<"Class A";
+        if(a[0]>127 && a[0]<=191)
+        cout<<"Class B";
+        if(a[0]>=192 && a[0]<=223)
+        cout<<"Class C";
+        if(a[0]>=224 && a[0]<=239)
+        cout<<"Class D";
+        if(a[0]>=240 && a[0]<=254)
+        cout<<"Class E";
+
+
+        return 1;
+        }
+
+Output
+Enter Ip address : 245 10 2 3
+class E
+
+
+
+
+
+Practical No.8
+
+
+Aim : 
+Execute a program to implement cyclic redundancy check error detection method.
+
+Theory :
+
+CRC or Cyclic Redundancy Check is a method of detecting accidental changes/errors in the communication channel. 
+CRC uses Generator Polynomial which is available on both sender and receiver side. An example generator polynomial is of the form like x3 + x + 1. This generator polynomial represents key 1011. Another example is x2 + 1 that represents key 101. 
+
+Sender Side (Generation of Encoded Data from Data and Generator Polynomial (or Key)): 
+The binary data is first augmented by adding k-1 zeros in the end of the data.
+Use binary division to divide binary data by the key and store remainder of division.
+Append the remainder at the end of the data to form the encoded data and send the same
+
+Receiver Side (Check if there are errors introduced in transmission):
+Perform  division again and if the remainder is 0, then there are no errors. 
+
+
+Code :
+
+#include<iostream>
+using namespace std;
+
+class CRC{
+    public:
+        int nf, ng, frame[20], gen[10], temp[20], b;
+        char a;
+        int* divide(int n, int g, int temp[10], int gen[10])
+        {
+            for(int i=0; i<n; i++)
+                {
+                    if(gen[0]==temp[i])
+                    {
+                        for(int j=0, k=i; j<g+1; j++, k++)
+                        {
+                            if(temp[k]^gen[j]==1)
+                            temp[k]=1;
+                            else
+                            temp[k]=0;
+                        }
+                    }
+                }
+        return temp;
+
+        }
+
+        void input()
+        {
+            cout<<"---------Sender's End----------"<<endl;
+            cout<<"Enter the number of message bits :";
+            cin>>nf;
+            cout<<"Enter the number of generator bits :";
+            cin>>ng;
+            cout<<"Enter the message :";
+            for(int i=0; i<nf; i++)
+                {
+                    cin>>frame[i];
+                    temp[i]=frame[i];
+                }
+                cout<<"Enter the generator:";
+                for(int i=0; i<ng; i++)
+                    {
+                        cin>>gen[i];
+                }
+                ng--;
+                for(int i=0; i<ng; i++)
+                    {
+                        temp[nf+i]=0;
+                }
+        }
+
+        void sender_side()
+        {
+            int* sender;
+            sender = divide(nf,ng,temp,gen);
+            cout<<endl<<"CRC:";
+            for(int i=0; i<ng; i++)
+                {
+                    frame[nf+i]=sender[nf+i];
+                    cout<<sender[nf+i]<<' ';
+                }
+                cout<<endl<<"Transmitted Message:";
+                for(int i=0; i<nf+ng; i++)
+                cout<<frame[i]<<' ';
+                cout<<endl;
+        }
+
+
+        int receiver_side()
+        {
+            int received[20];
+            cout<<"\n-----Receivers Side-----\n"<<endl;
+            cout<<"Enter the received message :";
+            for(int i=0; i<nf+ng; i++)
+                {
+                    cin>>received[i];
+                }
+            for (int i = 0; i < nf+ng; i++)
+                if (received[i] != frame[i])
+                   cout<<"Error!!!!";
+            cout<<endl<<"No Error in the received message"<<endl;
+
+            cout<<endl<<"Received message:"<<endl;
+            for(int i=0; i<nf; i++)
+                cout<<received[i]<<' ';
+            cout<<endl;
+        }
+};
+
+int main(){
+    CRC o;
+    o.input();
+    o.sender_side();
+    o.receiver_side();
+    return 0;
+}
+
+Output :
+Enter the number of message bits : 10
+Enter the number of generator bits : 5
+Enter the message : 1 1 0 1 0 1 1 0 1 1
+Enter the generator : 1 0 0 1 1
+
+CRC : 1 1 1 0
+
+
+Enter the received message : 1 1 0 1 0 1 1 0 1 1 1 1 1 0
+
+
+
+
+Practical No.9
+
+Aim : 
+Execute a program to implement checksum error detection method.
+
+
+Theory :
+
+In the checksum error detection scheme, the data is divided into k segments each of m bits.
+In the sender’s end the segments are added using 1’s complement arithmetic to get the sum. The sum is complemented to get the checksum.
+The checksum segment is sent along with the data segments.
+At the receiver’s end, all received segments are added using 1’s complement arithmetic to get the sum. The sum is complemented.
+If the result is zero, the received data is accepted; otherwise discarded.
+
+
+
+
+Code :
+
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+
+int main()
+{
+    char a[20],b[20];
+    char sum[20],complement[20];
+    int i;
+
+cout<<"Enter first binary string : ";
+    cin>>a;
+    cout<<"Enter second binary string : ";
+    cin>>b;
+
+if(strlen(a)==strlen(b))
+    {
+        char carry='0';
+        int length=strlen(a);
+
+for(i=length-1;i>=0;i--)
+        {
+            if(a[i]=='0' && b[i]=='0' && carry=='0')
+            {
+                sum[i]='0';
+                carry='0';
+            }
+            else if(a[i]=='0' && b[i]=='0' && carry=='1')
+            {
+                sum[i]='1';
+                carry='0';
+
+            }
+            else if(a[i]=='0' && b[i]=='1' && carry=='0')
+            {
+                sum[i]='1';
+                carry='0';
+
+            }
+            else if(a[i]=='0' && b[i]=='1' && carry=='1')
+            {
+                sum[i]='0';
+                carry='1';
+
+            }
+            else if(a[i]=='1' && b[i]=='0' && carry=='0')
+            {
+                sum[i]='1';
+                carry='0';
+
+            }
+            else if(a[i]=='1' && b[i]=='0' && carry=='1')
+            {
+                sum[i]='0';
+                carry='1';
+
+            }
+            else if(a[i]=='1' && b[i]=='1' && carry=='0')
+            {
+                sum[i]='0';
+                carry='1';
+
+            }
+            else if(a[i]=='1' && b[i]=='1' && carry=='1')
+            {
+                sum[i]='1';
+                carry='1';
+
+            }
+            else
+                break;
+        }
+        cout<<"\nSum="<<carry<<sum;
+
+        for(i=0;i<length;i++)
+        {
+            if(sum[i]=='0')
+                complement[i]='1';
+            else
+                complement[i]='0';
+        }
+
+if(carry=='1')
+            carry='0';
+        else
+            carry='1';
+
+    cout<<"\nChecksum="<<carry<<complement;
+    }
+    else
+        cout<<"\nWrong input strings";
+
+    return 0;
+}
+
+
+
+
+
+
+
+Output :
+Enter first binary string : 1011010
+Enter second Binary string : 1000110
