@@ -64,36 +64,102 @@ It is installed in the computer to establish a LAN.
 
 
 
-Practical 2 : Networking Commands.
+Practical No.2
 
+Aim : To study and implement network configuration commands on windows or Linux.
+
+Theory:
+
+Computers are often connected to each other on a network. They send requests to each other in the form of packets that travel from the host to the destination. Linux provides various commands from network configuration and troubleshooting. 
+
+Following is the list of some networking commands : 
 
 1. Ping
+
+Of all the Windows 10 network commands, Ping is probably the one almost everyone knows about and has used before. 
 The Ping command allows you to test the reachability of a device on a network. 
+Pinging a host should return four data packets, if the data packets are not returned you know there is a problem with your network connection.
+
 To run the basic command, at the prompt type:
+
 ping [host]
+
+Where [host] is the name or IP address of a common host server .
+
+
 2. IPConfig
+
+The IPConfig command is one of the more useful basic Windows network commands everyone should know and use to troubleshoot problems. 
 The IPConfig command displays basic IP address configuration information for the Windows device you are working on.
+ In fact, the command will display information for every network adapter that has ever been installed on your Windows 10 computer.
+
 To run the basic command, at the prompt type:
+
 ipconfig
+
+The general information includes IP Addresses for both IPv4 and IPv6, the Default Gateway, and the Subnet Mask.
+ Adding the parameter /all to the command will display DNS Server information and details concerning IP Address leases.
+
+
 3. Getmac
+
+Every network capable device on the internet has a unique identifying number called its MAC address. 
+The number is assigned during manufacture and is established in the hardware of the device. 
 Using the Getmac command, a user can determine the MAC address of their various network devices. 
-getmac
-4. HostNameThe Windows 10 HostName network command will simply display the current name of your Windows 10 computer 
-5. Tracert
-This command will trace the route a data packet takes before reaching its destination, displaying information on each hop along the route. 
-6. Netstat
-The Netstat command displays active TCP connections, ports on which the computer is listening, Ethernet statistics, the IP routing table, IPv4 statistics, and IPv6 statistics.
+Some administrators will use the unique MAC addresses of devices to limit what can and cannot connect to a network.
+
 To run the basic command, at the prompt type:
+
+getmac
+
+
+4. HostName
+
+The Windows 10 HostName network command will simply display the current name of your Windows 10 computer .
+ This is the name your computer uses to identify itself to the other devices and servers on your local network. 
+You can find this name in the System information screen in the GUI, but this command is quicker.
+
+
+5. Tracert
+
+Another handy tool for troubleshooting network connections in Windows 10 is the Tracert command. 
+This command will trace the route a data packet takes before reaching its destination, displaying information on each hop along the route. 
+Each hop of the route will display the latency between your device and that particular hop and the IP address of the hop.
+
+
+6. Netstat
+
+The Netstat command displays active TCP connections, ports on which the computer is listening, Ethernet statistics, the IP routing table, IPv4 statistics, and IPv6 statistics.
+When used without parameters, this command displays active TCP connections. 
+The information this command provides can be useful in pinpointing problems in your network connections.
+
+To run the basic command, at the prompt type:
+
 netstat
+
 7. Arp
 
 The Windows 10 network command Arp displays entries in the Address Resolution Protocol (ARP) cache, which contains one or more tables that are used to store IP addresses and their resolved Ethernet physical addresses.
+To get useful information from the Arp command you must provide a parameter. 
+The most general parameter is /a, which displays current Arp cache tables for all interfaces.
+
 To run the basic command, at the prompt type:
+
 arp /a
-8. SystemInfo 
-displays a detailed list of configuration information about your Windows 10 PC. 
+
+8. SystemInfo
+
+The last command on our list is the SystemInfo command, which displays a detailed list of configuration information about your Windows 10 PC. 
+The information listed by this command is too lengthy to mention in full but includes the installed version of Windows 10, the host name, the Product ID, the type and number of CPUs, RAM configuration, network card details and installed hotfixes.
+
+To run the basic command, at the prompt type:
+
+systeminfo
+
+
 9. Nslookup command
 Nslookup (stands for “Name Server Lookup”) is a useful command for getting information from the DNS server. It is a network administration tool for querying the Domain Name System (DNS) to obtain domain name or IP address mapping or any other specific DNS record. It is also used to troubleshoot DNS-related problems.
+
 
 
 
